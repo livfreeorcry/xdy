@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def roller():
 	rollString=request.args.get('text') if request.args.has_key('text') else request.args.get('roll',"1d6")
 	if rollString[0]=="'" or rollString[0]=='"':
