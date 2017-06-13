@@ -35,6 +35,3 @@ class Roll(object):
 	def roll(self):
 		throw = self.throw()
 		return sum(throw)+self.plus
-
-test=Roll("d20")
-print test.roll(),test.roll(),test.roll(),test.roll()
