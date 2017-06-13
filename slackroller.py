@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def roller():
-	rollString=request.args.get('roll')
+	rollString=request.args.get('text') if request.args.has_key('text') else request.args.get('roll',"1d6")
 	if rollString[0]=="'" or rollString[0]=='"':
 		rollString=rollString[2:-1]
 	# return str(Roll(rollString).roll())
