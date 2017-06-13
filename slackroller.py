@@ -13,10 +13,10 @@ def roller():
 	dice = Roll(rollString)
 	response = {
 	"response_type" : "in_channel",
-	"text": "You rolled %s: %s" % (rollString, str(dice.roll())),
+	"text": "You rolled %s and got: %s" % (rollString, str(dice.roll())),
 	"attachments":[
 	    {
-	    "text": "%s - %s + %d" % (rollString, str(dice.results), dice.plus)
+	    "text": "%s + %d" % (rollString, str(dice.results), dice.plus)
 	    }
 		]
 	}
