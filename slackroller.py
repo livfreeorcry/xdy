@@ -6,4 +6,4 @@ app = Flask(__name__)
 @app.route('/')
 def roller():
 	rollString=request.args.get('roll')
-	return roll
+	return rollString
