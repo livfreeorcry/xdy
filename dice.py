@@ -20,7 +20,7 @@ class Roll(object):
 		regex = r'^[0-9]{,2}[dD][1-9][0-9]?(\+[0-9]{1,5})?$'
 		if not re.match(regex,rollString):
 			raise ValueError('Invalid roll string: %s' %(rollString))
-		splitString = re.split(r'[d\+]+',rollString)
+		splitString = re.split(r'[d\+ ]+',rollString)
 		if len(splitString)==3 and splitString[0] != '':
 			numDice, die, plus = splitString
 		elif len(splitString)==3 and splitString[0] == '':
