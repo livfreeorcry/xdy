@@ -16,8 +16,8 @@ def roller():
 	"text": "You rolled: %s" % (str(dice.roll())),
 	"attachments":[
 	    {
-	    	"text": "%s + %d" % (str(dice.results), dice.plus)
+	    "text": "%s + %d" % (str(dice.results), dice.plus)
 	    }
-	]
+		]
 	}
-	return response
+	return jsonify(response)
