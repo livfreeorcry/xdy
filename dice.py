@@ -17,7 +17,7 @@ class Roll(object):
 	def parseRoll(self, rollString):
 		numDice = 1
 		plus = 0
-		regex = r'^[0-9]{,2}[dD][1-9][0-9]?(\+[0-9]{1,5})?$'
+		regex = r'^[0-9]{,2}[dD][1-9][0-9]?([\+ ][0-9]{1,5})?$'
 		if not re.match(regex,rollString):
 			raise ValueError('Invalid roll string: %s' %(rollString))
 		splitString = re.split(r'[d\+ ]+',rollString)
