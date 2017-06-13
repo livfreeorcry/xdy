@@ -9,4 +9,4 @@ def roller():
 	rollString=request.args.get('roll')
 	if rollString[0]=="'" or rollString[0]=='"':
 		rollString=rollString[2:-1]
-	return Roll(rollString).roll()
+	return str(Roll(rollString).roll())
