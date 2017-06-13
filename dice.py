@@ -9,10 +9,10 @@ class Roll(object):
 
 	def throw(self):
 		# self.result=randint(1,self.die)
-		result=[]
+		self.results=[]
 		for i in range(self.numDice):
-			result.append(randint(1,self.die))
-		return result
+			self.results.append(randint(1,self.die))
+		return self.results
 
 	def parseRoll(self, rollString):
 		numDice = 1
