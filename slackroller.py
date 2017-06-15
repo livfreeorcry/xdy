@@ -9,14 +9,13 @@ def roller():
 	rollString=request.args.get('text') if request.args.has_key('text') else request.args.get('roll',"1d6")
 	if rollString[0]=="'" or rollString[0]=='"':
 		rollString=rollString[2:-1]
-	# return str(Roll(rollString).roll())
 	dice = Roll.from_string(rollString)
 	response = {
 	"response_type" : "in_channel",
-	"text": "Rolled %s and got: *%s*" % (rollString, str(dice.roll())),
+	"text": "Rolled %s and got: *%d*" % (rollString, int(dice)),
 	"attachments":[
 	    {
-	    "text": "%s + %d" % (str(dice.results), dice.plus) if dice.plus > 0 else str(dice.results)
+	    "text": "%s + %d" % (str(dice), dice.plus) if dice.plus else str(dice.results)
 	    }
 		]
 	}
