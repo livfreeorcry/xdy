@@ -1,6 +1,6 @@
 import os
 import re
-from dice import Roll
+from dice import Roll, parseString
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 
 app = Flask(__name__)
@@ -9,13 +9,39 @@ app = Flask(__name__)
 def roller():
 	rollString=request.args.get('text') if request.args.has_key('text') else request.args.get('roll',"1d6")
 	rollString=re.sub(r'[!@#$\'\"]','',rollString)
-	dice = Roll.from_string(rollString)
+	parsed = parseString(rollString)
+	dice = Roll(sides=parsed['sides'], ammount=parsed['ammount'], bonus=parsed['bonus'])
+	dropped = []
+	if 'keep' in parsed:
+		dropped.extend(dice.keep(parsed['keep']))
+	if 'drop' in parsed:
+		dropped.extend(dice.drop(parsed['drop']))
+		
+	if dropped and dice.bonus:
+		attachmentString="%s + %d : Dropped: %s" % (
+			str(dice),
+			dice.bonus,
+			str(dropped)
+			)
+	elif dropped:
+		attachmentString="%s : Dropped: %s" % (
+			str(dice),
+			str(dropped)
+			)
+	elif dice.bonus:
+		attachmentString="%s + %d" % (
+			str(dice),
+			dice.bonus,
+			)
+	else:
+		attachmentString=str(dice)
+
 	response = {
 	"response_type" : "in_channel",
 	"text": "Rolled %s and got: *%d*" % (rollString, int(dice)),
 	"attachments":[
 	    {
-	    "text": "%s + %d" % (str(dice), dice.bonus) if dice.bonus else str(dice.results)
+	    "text": attachmentString
 	    }
 		]
 	}
