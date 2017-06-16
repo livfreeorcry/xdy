@@ -17,6 +17,11 @@ def parseString(rollString):
 	bonus = re.match(r'^.*[\+ p]([0-9]{1,5})', rollString)
 	breakdown['bonus'] = int(bonus.group(1)) if bonus else 0
 
+	#Grabbing a penalty, if there's no bonus
+	if not bonus: 
+		penalty = re.match(r'^.*[\-p]([0-9]{1,5})', rollString)
+		if penalty: breakdown['bonus'] = int(penalty.group(1))*-1 
+
 	# Grabbing keep, to drop the lowest n rolls.
 	# e.g. 4d6k3, 4d6^3
 	keep = re.match(r'^.*[\^p]([0-9{0,2}])',rollString)
@@ -40,6 +45,7 @@ class Roll(object):
 
 	@classmethod
 	def from_string(cls, rollString):
+		# using a string like '4d6+5'
 		ps = parseString(rollString)
 		return cls(ps['sides'],ps['ammount'],ps['bonus'])
 

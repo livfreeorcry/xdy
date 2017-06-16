@@ -33,7 +33,6 @@ class SlackrollerTestCase(unittest.TestCase):
 		assert rv == 6
 
 	def test_regex_parser(self):
-		print '\nregex parser'
 		rv = dice.parseString("5d6+1")
 		print dice.Roll(rv['sides'],rv['ammount'],rv['bonus'])
 		assert 6 == rv['sides']
