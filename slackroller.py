@@ -15,7 +15,7 @@ def roller():
 	"text": "Rolled %s and got: *%d*" % (rollString, int(dice)),
 	"attachments":[
 	    {
-	    "text": "%s + %d" % (str(dice), dice.plus) if dice.plus else str(dice.results)
+	    "text": "%s + %d" % (str(dice), dice.bonus) if dice.bonus else str(dice.results)
 	    }
 		]
 	}
