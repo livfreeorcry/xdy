@@ -13,9 +13,21 @@ def parseString(rollString):
 	breakdown['sides']=int(sides)
 	breakdown['ammount'] = int(ammount) if ammount else 1
 
-	#Grabbing what looks like a bonus 
+	# Grabbing what looks like a bonus 
 	bonus = re.match(r'^.*[\+ p]([0-9]{1,5})', rollString)
 	breakdown['bonus'] = int(bonus.group(1)) if bonus else 0
+
+	# Grabbing keep, to drop the lowest n rolls.
+	# e.g. 4d6k3, 4d6^3
+	keep = re.match(r'^.*[\^p]([0-9{0,2}])',rollString)
+	if keep: 
+		breakdown['keep'] = keep.group(1) if keep.group(1) < breakdown['ammount'] else breakdown['ammount']-1
+	
+	# Grabbing drop, to drop the highest n rolls.
+	drop = re.match(r'^.*[vd]([0-9{0,2}])',rollString)
+	if drop: 
+		breakdown['drop'] = drop.group(1) if drop.group(1) < breakdown['ammount'] else breakdown['ammount']-1
+
 	return breakdown
 
 
