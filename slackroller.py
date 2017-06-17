@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def roller():
-	rollString=request.args.get('text') if request.args.has_key('text') else request.args.get('roll',"1d6")
+	rollString=request.values.get('text') if request.values.has_key('text') else request.values.get('roll',"1d6")
 	rollString=re.sub(r'[!@#$\'\"]','',rollString)
 	parsed = parseString(rollString)
 	dice = Roll(sides=parsed['sides'], ammount=parsed['ammount'], bonus=parsed['bonus'])
